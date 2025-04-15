@@ -20,10 +20,10 @@ global.client = new Client({
         GatewayIntentBits.MessageContent,
     ],
     presence: {
-        status: 'dnd',
+        status: 'idle',
         activities: [{
             name: 'punyaa ardyy🥱',
-            type: 3
+            type: 0
         }]
     },
     disableMentions: 'everyone',
