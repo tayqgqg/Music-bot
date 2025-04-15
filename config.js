@@ -1,7 +1,7 @@
 const process = require('process');
 module.exports = {
     app: {
-        token: process.env.DISCORD_TOKEN || 'xxx',
+        token: process.env.DISCORD_TOKEN || 'MTM2MDUxNjI3ODc3OTExNzc0OQ.Goqe73.hadYoD5VEPsDylOSSwBsAuzC6tnj4j11MDCXX8',
         playing: 'punyaa ardyy🥱',
         global: true,
         guild: process.env.GUILD_ID || 'xxx',
