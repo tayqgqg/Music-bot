@@ -48,7 +48,7 @@ client.on('messageCreate', (message) => {
     }
 });
 
-client.login('MTM2MDUxNjI3ODc3OTExNzc0OQ.GIM79B.1FTuvBXpyOfr95Oiq_DIUjtGlfeqT3Er1KX-yI');
+client.login(process.env.DISCORD_TOKEN);
 
 client.config = require('./config');
 
