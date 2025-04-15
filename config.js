@@ -1,14 +1,15 @@
+const process = require('process');
 module.exports = {
     app: {
-    token: process.env.DISCORD_TOKEN,
-    playing: 'punyaa ardyy🥱',
-    global: true,
-    guild: process.env.GUILD_ID,
-    extraMessages: false,
-    loopMessage: false,
-    lang: 'en',
-    enableEmojis: false,
-},
+        token: process.env.DISCORD_TOKEN || 'xxx',
+        playing: 'punyaa ardyy🥱',
+        global: true,
+        guild: process.env.GUILD_ID || 'xxx',
+        extraMessages: false,
+        loopMessage: false,
+        lang: 'en',
+        enableEmojis: false,
+    },
 
     emojis:{
         'back': '⏪',
