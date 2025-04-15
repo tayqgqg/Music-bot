@@ -6,8 +6,9 @@
     "repository": "https://github.com/ZerioDev/Music-bot.git",
     "description": "A complete code to download for a cool Discord music bot.",
     "scripts": {
-        "start": "node main.js"
-    },
+  "start": "node main.js",
+  "postinstall": "npm install bgutils-js"
+},
     "dependencies": {
         "@discord-player/extractor": "^4.3.1",
         "@discordjs/opus": "^0.9.0",
