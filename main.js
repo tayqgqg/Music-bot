@@ -29,6 +29,27 @@ global.client = new Client({
     disableMentions: 'everyone',
 });
 
+// Custom Prefix
+const prefix = '*'; // Ganti dengan prefix yang kamu inginkan
+
+client.on('messageCreate', (message) => {
+    if (message.author.bot) return; // Jangan proses pesan dari bot lain
+    
+    if (message.content.startsWith(prefix)) {
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        const command = args.shift().toLowerCase();
+
+        // Misalnya, perintah untuk play music
+        if (command === 'play') {
+            // Logika untuk perintah 'play'
+        }
+
+        // Tambahkan perintah lainnya di sini
+    }
+});
+
+client.login('MTM2MDUxNjI3ODc3OTExNzc0OQ.GIM79B.1FTuvBXpyOfr95Oiq_DIUjtGlfeqT3Er1KX-yI');
+
 client.config = require('./config');
 
 const player = new Player(client, client.config.opt.discordPlayer);
