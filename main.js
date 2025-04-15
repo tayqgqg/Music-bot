@@ -1,7 +1,7 @@
 // === KEEP-ALIVE UNTUK RAILWAY ===
 const express = require("express");
 const app = express();
-app.get("*", (req, res) => res.send("Bot Aktif!"));
+app.get("/", (req, res) => res.send("Bot Aktif!"));
 app.listen(process.env.PORT || 3000);
 
 // === DOTENV & DISCORD BOT ===
@@ -19,6 +19,22 @@ global.client = new Client({
         GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.MessageContent,
     ],
+    global.client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.MessageContent,
+    ],
+    presence: {
+        status: 'dnd', // status: online | idle | invisible | dnd
+        activities: [{
+            name: 'punyaa ardyy🥱',
+            type: 3 // 0: Playing, 2: Listening, 3: Watching, etc.
+        }]
+    }
+});
     disableMentions: 'everyone',
 });
 
