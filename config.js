@@ -2,13 +2,13 @@
 module.exports = {
     app: {
         token: process.env.DISCORD_TOKEN || 'xxx',
-        playing: 'by the Community ❤️',
+        playing: 'punyaa ardyy🥱',
         global: true,
         guild: process.env.GUILD_ID || 'xxx',
-        extraMessages: false,
+        extraMessages: true,
         loopMessage: false,
-        lang: 'en',
-        enableEmojis: false,
+        lang: 'in',
+        enableEmojis: true,
     },
 
     emojis:{
@@ -28,9 +28,9 @@ module.exports = {
             commands: []
         },
         Translate_Timeout: 10000,
-        maxVol: 100,
+        maxVol: 1000,
         spotifyBridge: true,
-        volume: 75,
+        volume: 100,
         leaveOnEmpty: true,
         leaveOnEmptyCooldown: 30000,
         leaveOnEnd: true,
