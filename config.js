@@ -7,7 +7,7 @@ module.exports = {
         guild: process.env.GUILD_ID || 'xxx',
         extraMessages: true,
         loopMessage: false,
-        lang: 'in',
+        lang: 'id',
         enableEmojis: true,
     },
 
