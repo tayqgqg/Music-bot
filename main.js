@@ -20,7 +20,7 @@ global.client = new Client({
         GatewayIntentBits.MessageContent,
     ],
     presence: {
-        status: 'idle',
+        status: 'dnd',
         activities: [{
             name: 'punyaa ardyy🥱',
             type: 3
@@ -28,7 +28,6 @@ global.client = new Client({
     },
     disableMentions: 'everyone',
 });
-
 client.config = require('./config');
 
 const player = new Player(client, client.config.opt.discordPlayer);
