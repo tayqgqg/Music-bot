@@ -28,13 +28,12 @@ global.client = new Client({
         GatewayIntentBits.MessageContent,
     ],
     presence: {
-        status: 'dnd', // status: online | idle | invisible | dnd
+        status: 'dnd',
         activities: [{
             name: 'punyaa ardyy🥱',
-            type: 3 // 0: Playing, 2: Listening, 3: Watching, etc.
+            type: 3
         }]
-    }
-});
+    },
     disableMentions: 'everyone',
 });
 
