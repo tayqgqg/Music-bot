@@ -2,13 +2,13 @@
 module.exports = {
     app: {
     token: process.env.DISCORD_TOKEN || 'your-token-here',
-    playing: 'punyaa ardyy🥱',
+    watching: 'YouTube ardyy🥱',
     global: true,
     guild: process.env.GUILD_ID || 'xxx',
-    prefix: '!', // Tambahkan baris ini
+    prefix: '*', // Tambahkan baris ini
     extraMessages: false,
     loopMessage: false,
-    lang: 'en',
+    lang: 'id',
     enableEmojis: false,
 },
 
