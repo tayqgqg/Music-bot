@@ -1,46 +1,58 @@
-// === KEEP-ALIVE UNTUK RAILWAY ===
-const express = require("express");
-const app = express();
-app.get("/", (req, res) => res.send("Bot Aktif!"));
-app.listen(process.env.PORT || 3000);
-
-// === DOTENV & DISCORD BOT ===
-require('dotenv').config();
-
+const { Client, GatewayIntentBits, InteractionType } = require('discord.js');
 const { Player } = require('discord-player');
-const { Client, GatewayIntentBits } = require('discord.js');
 const { YoutubeiExtractor } = require('discord-player-youtubei'); // Import the new extractor
+const { prefix } = require('./config.json'); // Pastikan kamu punya file config.json untuk prefix
 
-global.client = new Client({
+const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.MessageContent,
     ],
     presence: {
-    status: 'idle',
-    activities: [{
-        name: 'YouTube Ardyy🥱',
-        type: 3 // 3 = Watching
-    }]
-},
+        status: 'idle',
+        activities: [{
+            name: 'YouTube Ardyy',
+            type: 'WATCHING',
+        }],
+    },
     disableMentions: 'everyone',
 });
-client.config = require('./config');
 
-const player = new Player(client, client.config.opt.discordPlayer);
-// Register the new Youtubei extractor
-player.extractors.register(YoutubeiExtractor, {});
+client.commands = new Map(); // Simpan semua perintah disini
 
-console.clear();
-require('./loader');
-
-client.login(client.config.app.token).catch(async (e) => {
-    if (e.message === 'An invalid token was provided.') {
-        require('./process_tools').throwConfigError('app', 'token', '\n\t   ❌ Invalid Token Provided! ❌ \n\tChange the token in the config file\n');
-    } else {
-        console.error('❌ An error occurred while trying to login to the bot! ❌ \n', e);
+// ** Slash Commands **
+client.on('interactionCreate', async (interaction) => {
+    if (interaction.type === InteractionType.ApplicationCommand) {
+        const command = client.commands.get(interaction.commandName);
+        if (!command) return;
+        try {
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'Terjadi kesalahan!', ephemeral: true });
+        }
     }
 });
+
+// ** Prefix Commands **
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return;  // Hanya perintah dengan prefix yang diproses
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    const command = client.commands.get(commandName);
+    
+    if (command) {
+        try {
+            await command.execute(message, args);
+        } catch (error) {
+            console.error(error);
+            message.reply('Terjadi kesalahan dalam menjalankan perintah.');
+        }
+    }
+});
+
+client.login(process.env.BOT_TOKEN);
