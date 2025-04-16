@@ -83,9 +83,15 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
         console.log('Mengupdate slash commands...');
 
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID),
-            { body: commands },
-        );
+  Routes.applicationCommands(process.env.CLIENT_ID),
+  { body: [] } // clear dulu
+);
+
+// Kemudian daftar ulang
+await rest.put(
+  Routes.applicationCommands(process.env.CLIENT_ID),
+  { body: commands },
+);
 
         console.log('✅ Slash commands berhasil diperbarui!');
     } catch (error) {
