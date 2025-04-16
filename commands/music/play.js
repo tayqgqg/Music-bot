@@ -1,6 +1,19 @@
 const { QueryType, useMainPlayer } = require('discord-player');
 const { ApplicationCommandOptionType, EmbedBuilder } = require('discord.js');
 const { Translate } = require('../../process_tools');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
+module.exports = {
+    name: 'play',
+    description: 'Putar lagu',
+    async execute(interaction) {
+        // Implementasi perintah untuk Slash command
+        await interaction.reply('Sedang memutar lagu...');
+    },
+    data: new SlashCommandBuilder()
+        .setName('play')
+        .setDescription('Putar lagu')
+};
 
 module.exports = {
     name: 'play',
