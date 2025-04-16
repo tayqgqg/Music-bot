@@ -22,8 +22,8 @@ global.client = new Client({
     presence: {
         status: 'idle',
         activities: [{
-            name: 'punyaa ardyy🥱',
-            type: 0
+            name: 'YouTube ardyy🥱',
+            type: 3
         }]
     },
     disableMentions: 'everyone',
