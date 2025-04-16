@@ -20,12 +20,12 @@ global.client = new Client({
         GatewayIntentBits.MessageContent,
     ],
     presence: {
-        status: 'idle',
-        activities: [{
-            name: 'YouTube ardyy🥱',
-            type: 3
-        }]
-    },
+    status: 'idle',
+    activities: [{
+        name: 'YouTube Ardyy🥱',
+        type: 3 // 3 = Watching
+    }]
+},
     disableMentions: 'everyone',
 });
 client.config = require('./config');
