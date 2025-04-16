@@ -1,16 +1,14 @@
-
 module.exports = {
     app: {
-    token: process.env.DISCORD_TOKEN || 'your-token-here',
-    watching: 'YouTube ardyy🥱',
-    global: true,
-    guild: process.env.GUILD_ID || 'xxx',
-    prefix: '*', // Tambahkan baris ini
-    extraMessages: false,
-    loopMessage: false,
-    lang: 'id',
-    enableEmojis: false,
-},
+        token: process.env.DISCORD_TOKEN || 'xxx',
+        watching: 'YouTube Ardyy🥱',
+        global: true,
+        guild: process.env.GUILD_ID || 'xxx',
+        extraMessages: true,
+        loopMessage: false,
+        lang: 'id',
+        enableEmojis: true,
+    },
 
     emojis:{
         'back': '⏪',
@@ -29,9 +27,9 @@ module.exports = {
             commands: []
         },
         Translate_Timeout: 10000,
-        maxVol: 1000,
+        maxVol: 100,
         spotifyBridge: true,
-        volume: 100,
+        volume: 75,
         leaveOnEmpty: true,
         leaveOnEmptyCooldown: 30000,
         leaveOnEnd: true,
