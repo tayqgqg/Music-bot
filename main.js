@@ -2,6 +2,39 @@ const { Client, GatewayIntentBits, InteractionType } = require('discord.js');
 const { Player } = require('discord-player');
 const { YoutubeiExtractor } = require('discord-player-youtubei'); // Import the new extractor
 const { prefix } = require('./config.json'); // Pastikan kamu punya file config.json untuk prefix
+const { REST, Routes } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const fs = require('fs');
+
+const commands = [];
+
+// Baca semua command yang punya `data` (berarti slash command)
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    if (command.data) {
+        commands.push(command.data.toJSON());
+    }
+}
+
+const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
+
+// Daftarkan slash commands global
+(async () => {
+    try {
+        console.log('Mengupdate slash commands...');
+
+        await rest.put(
+            Routes.applicationCommands(process.env.CLIENT_ID),
+            { body: commands },
+        );
+
+        console.log('✅ Slash commands berhasil diperbarui!');
+    } catch (error) {
+        console.error('❌ Gagal mendaftar slash commands:', error);
+    }
+})();
 
 const client = new Client({
     intents: [
