@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, InteractionType } = require('discord.js');
 const { Player } = require('discord-player');
 const { YoutubeiExtractor } = require('discord-player-youtubei'); // Import the new extractor
-const { prefix } = require('./config.json'); // Pastikan kamu punya file config.json untuk prefix
+const { prefix } = require('./config.js'); // Pastikan kamu punya file config.json untuk prefix
 
 const client = new Client({
     intents: [
