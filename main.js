@@ -60,7 +60,7 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);  // Menggunakan token dari .env
+client.login(process.env.DISCORD_TOKEN);  // Menggunakan token dari .env
 
 // Menyiapkan dan mendaftar Slash Commands
 const commands = [];
