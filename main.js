@@ -1,11 +1,9 @@
-require('dotenv').config();  // Memuat file .env untuk mendapatkan variabel lingkungan
+require('dotenv').config();  // Memuat file .env
 
-const { Client, GatewayIntentBits, InteractionType } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
 const { YoutubeiExtractor } = require('discord-player-youtubei');
-const { prefix } = require('./config.js');  // Menggunakan config.js untuk mendapatkan prefix
-const { REST, Routes } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { prefix } = require('./config.js');  // Ambil prefix dari config.js
 const fs = require('fs');
 
 const client = new Client({
@@ -25,26 +23,19 @@ const client = new Client({
     disableMentions: 'everyone',
 });
 
-client.commands = new Map();  // Menyimpan semua perintah di sini
+client.commands = new Map();  // Simpan perintah di sini
 
-// ** Slash Commands **
-client.on('interactionCreate', async (interaction) => {
-    if (interaction.type === InteractionType.ApplicationCommand) {
-        const command = client.commands.get(interaction.commandName);
-        if (!command) return;
-        try {
-            await command.execute(interaction);
-        } catch (error) {
-            console.error(error);
-            await interaction.reply({ content: 'Terjadi kesalahan!', ephemeral: true });
-        }
-    }
-});
+// Load semua command dari folder /commands
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
-// ** Prefix Commands **
+// Event prefix command
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;  // Memeriksa apakah pesan menggunakan prefix yang valid
+    if (!message.content.startsWith(prefix)) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
@@ -55,46 +46,9 @@ client.on('messageCreate', async (message) => {
             await command.execute(message, args);
         } catch (error) {
             console.error(error);
-            message.reply('Terjadi kesalahan dalam menjalankan perintah.');
+            message.reply('Terjadi kesalahan saat menjalankan perintah.');
         }
     }
 });
 
-client.login(process.env.DISCORD_TOKEN);  // Menggunakan token dari .env
-
-// Menyiapkan dan mendaftar Slash Commands
-const commands = [];
-
-// Baca semua command di folder 'commands' yang memiliki property 'data'
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    if (command.data) {
-        commands.push(command.data.toJSON());
-    }
-}
-
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-
-// Daftarkan slash commands secara global
-(async () => {
-    try {
-        console.log('Mengupdate slash commands...');
-
-        await rest.put(
-  Routes.applicationCommands(process.env.CLIENT_ID),
-  { body: [] } // clear dulu
-);
-
-// Kemudian daftar ulang
-await rest.put(
-  Routes.applicationCommands(process.env.CLIENT_ID),
-  { body: commands },
-);
-
-        console.log('✅ Slash commands berhasil diperbarui!');
-    } catch (error) {
-        console.error('❌ Gagal mendaftar slash commands:', error);
-    }
-})();
+client.login(process.env.DISCORD_TOKEN);
